@@ -1,120 +1,98 @@
+import numpy
+
+from geneticalgorithm import geneticalgorithm
+from geneticalgorithmwelitism import geneticalgorithmwelitism
+from geneticalgorithmwelitism import distanceTwoPoints
+from geneticalgorithmwelitism import decode
+from bruteforce import caminhomininmo
 import numpy as np
 import matplotlib.pyplot as plt
-from caminhomenordistancia import caminhomininmo
 
 # lendo os conteudos dos arquivos
-with open('exemplos/exemplo1.txt') as f:
+with open('exemplos/matrices/exemplo1.txt') as f:
     matrix = f.readlines()
-with open('exemplos/exemplo2.txt') as f:
+with open('exemplos/matrices/exemplo2.txt') as f:
     matrix2 = f.readlines()
-with open('exemplos/exemplo3.txt') as f:
+with open('exemplos/matrices/exemplo3.txt') as f:
     matrix3 = f.readlines()
-with open('exemplos/exemplo4.txt') as f:
+with open('exemplos/matrices/exemplo4.txt') as f:
     matrix4 = f.readlines()
-with open('exemplos/exemplo5.txt') as f:
+with open('exemplos/matrices/exemplo5.txt') as f:
     matrix5 = f.readlines()
-with open('exemplos/exemplo6.txt') as f:
+with open('exemplos/matrices/exemplo6.txt') as f:
     matrix6 = f.readlines()
+with open('exemplos/matrices/exemplo7.txt') as f:
+    matrix7 = f.readlines()
+with open('exemplos/matrices/exemplo8.txt') as f:
+    matrix8 = f.readlines()
+with open('exemplos/matrices/exemplo9.txt') as f:
+    matrix9 = f.readlines()
+with open('exemplos/matrices/example10.txt') as f:
+    matrix10 = f.readlines()
+
+with open('exemplos/tsplib/a280.txt') as f:
+    a280 = f.readlines()
+with open('exemplos/tsplib/st80.txt') as f:
+    st80 = f.readlines()
 
 
+todasmatrizes = [matrix,matrix2,matrix3,matrix4,matrix5,matrix6]
+## experimento 1
 
-# tamanho = [int(x) for x in matrix4[0].split()]
-# calculando o menor caminho das matrizes de exemplo
-retmatrix = caminhomininmo(matrix)
-retmatrix2 = caminhomininmo(matrix2)
-retmatrix3 = caminhomininmo(matrix3)
-retmatrix4 = caminhomininmo(matrix4)
-# retmatrix5 = caminhomininmo(matrix5)
-# retmatrix6 = caminhomininmo(matrix6)
-print(retmatrix,retmatrix2,retmatrix3,retmatrix4)
+# print(geneticalgorithmwelitism(st80))
 
-# # calculo do experimento 1 (percurso completo) até a linha 102
-# # função para substituir os pontos no melhor caminho pelos pontos (listados no dicionário)
-# def percursoNaMatrix(melhorCaminho, dicionario):
-#     melhorCaminho.insert(0,'R')
-#     melhorCaminho.append('R')
-#     lista_auxiliar = []
-#     for i,j in enumerate(melhorCaminho):
-#         for k in dicionario:
-#             if k == j:
-#                 lista_auxiliar.append(list(dicionario["{}".format(k)]))
-#
-#
-#     return lista_auxiliar
-#
-# # criando o percurso na matrix
-# labels = retmatrix4[0]
-# melhor_percurso = np.array(percursoNaMatrix(retmatrix4[0],retmatrix4[1]))
-#
-# for i in range(len(retmatrix4[0])):
-#     label = labels[i]
-#     if i < len(retmatrix4[0])-1:
-#         plt.plot(
-#             np.array([melhor_percurso[i : i + 1, 1], melhor_percurso[i : i + 1, 1]]),
-#             np.array(
-#                 [melhor_percurso[i : i + 1, 0], melhor_percurso[i + 1 : i + 2, 0]]
-#             ),
-#             "ko-",
-#             linewidth=2,
-#             markersize=10,
-#         )
-#         plt.plot(
-#             np.array(
-#                 [melhor_percurso[i : i + 1, 1], melhor_percurso[i + 1 : i + 2, 1]]
-#             ),
-#             np.array(
-#                 [melhor_percurso[i + 1 : i + 2, 0], melhor_percurso[i + 1 : i + 2, 0]]
-#             ),
-#             "ko-",
-#             linewidth=2,
-#             markersize=10,
-#         )
-#         plt.annotate(
-#             label,  # this is the text
-#             (
-#                 melhor_percurso[i : i + 1, 1],
-#                 melhor_percurso[i : i + 1, 0],
-#             ),  # these are the coordinates to position the label
-#             textcoords="offset points",  # how to position the text
-#             xytext=(10, 1),  # distance from text to points (x,y)
-#             ha="center",
-#             fontsize=14,
-#             fontname='Times New Roman'
-#         )  # horizontal alignment can be left, right or center
-#     else:
-#         plt.annotate(
-#             label,  # this is the text
-#             (
-#                 melhor_percurso[i : i + 1, 1],
-#                 melhor_percurso[i : i + 1, 0],
-#             ),  # these are the coordinates to position the label
-#             textcoords="offset points",  # how to position the text
-#             xytext=(10, 1),  # distance from text to points (x,y)
-#             ha="center",
-#             fontsize=14,
-#             fontname='Times New Roman'
-#         )  # horizontal alignment can be left, right or center
-# plt.title("Melhor percurso para a matriz com 8 pontos de entrega", fontsize=18, fontdict={'fontname':"Times New Roman"})
-# plt.xlabel("Coordenada X", fontsize=14, fontdict={'fontname':"Times New Roman"})
-# plt.ylabel("Coordenada Y", fontsize=14, fontdict={'fontname':"Times New Roman"})
-# plt.xticks([int(i) for i in range(tamanho[1]+1)],fontsize=14,fontname='Times New Roman')
-# plt.yticks([int(i) for i in range(tamanho[0]+1)],fontsize=14,fontname='Times New Roman')
+
+# matrix10copy = matrix10[:]
+
+# gawe = [(x[1]) for x in geneticalgorithmwelitism(matrix10copy)[0]]
+# ga = [(k[1]) for k in geneticalgorithm(matrix10)[0]]
+# x = [x for x in range(len(ga))]
+
+# fig = plt.figure()
+# ax = fig.add_subplot(1, 1, 1)
+# ax.plot(x, ga, color='tab:blue',label='sem elitismo')
+# ax.plot(x, gawe, color='tab:orange',label='com elitismo')
+# plt.title('Elitismo', fontdict={'fontname': 'Times New Roman'})
+# plt.xlabel('Distância', fontdict={'fontname': 'Times New Roman'})
+# plt.ylabel('Gerações', fontdict={'fontname': 'Times New Roman'})
+# plt.xticks(fontname= 'Times New Roman')
+# plt.yticks(fontname= 'Times New Roman')
+# plt.legend()
 # plt.show()
-# print(retmatrix4[2])
 
 
-# # Plot de experimentos de gráfico (tempo e pontos de entrega)
-# x = retmatrix[0], retmatrix2[0], retmatrix3[0], retmatrix4[0], retmatrix5[0], retmatrix6[0]
-# y = retmatrix[1], retmatrix2[1], retmatrix3[1], retmatrix4[1], retmatrix5[1], retmatrix6[1]
-# error = [0,0,0.002,0.1,10,100],[0,0.0003,0.02,0.1,10,100]
+## experimento 2
+
+def times30(matrix1):
+    ga1, t1 = [],[]
+    for x in range(30):
+        l1, tx1 = matrix1
+        ga1.append(l1[1]), t1.append(tx1)
+    ga1 = numpy.sum(ga1)/30
+    t1 = numpy.sum(t1)/30
+    return ga1,t1
 #
-# # plt.plot(x, y)
-# fig, ax = plt.subplots()
-# ax.errorbar(x, y, yerr=error,mfc="blue", mec="green", ms=10, mew=4)
+# y = caminhomininmo(matrix)[1], caminhomininmo(matrix2)[1], caminhomininmo(matrix3)[1], caminhomininmo(matrix4)[1], caminhomininmo(matrix5)[1], caminhomininmo(matrix6)[1]
+y1 = []
+x = []
+#
+for indice,matriz in enumerate(todasmatrizes):
+    globals()['rese%s' % indice],globals()['tempe%s' % indice] = times30(geneticalgorithmwelitism(matriz))
+    y1.append(globals()['tempe%s' % indice])
+    x.append(globals()['rese%s' % indice])
+
+#
+# x = [4,5,6,8,10,11]
+
+print(x,y1)
+# fig = plt.figure()
+# ax = fig.add_subplot(1, 1, 1)
+# ax.plot(x, y, color='tab:blue',label='força bruta')
+# ax.plot(x, y1, color='tab:orange',label='algoritmo genético')
 # plt.title('Tempo de execução', fontdict={'fontname': 'Times New Roman'})
-# plt.xlabel('N° de pontos')
-# plt.ylabel('Segundos')
-# plt.xticks([4, 5, 6, 8, 10, 11])
-# # print(x,y)
-#
+# plt.xlabel('N° de pontos', fontdict={'fontname': 'Times New Roman'})
+# plt.ylabel('Segundos', fontdict={'fontname': 'Times New Roman'})
+# plt.xticks(fontname= 'Times New Roman')
+# plt.yticks(fontname= 'Times New Roman')
+# plt.legend()
 # plt.show()
